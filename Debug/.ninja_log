@@ -1,0 +1,34 @@
+# ninja log v5
+15	142	7123629701691484	W:/ARWB_1/hall_speedometer_updated_withoutcomments/Debug/Obj/main.r43	ace55bd141f55de1
+10	111	7123629701412299	W:/ARWB_1/hall_speedometer_updated_withoutcomments/Debug/Obj/hal.r43	787fe6183c6c6b25
+3	114	7123629701348971	W:/ARWB_1/hall_speedometer_updated_withoutcomments/Debug/Obj/drv.r43	a54a81c2fa0c56e2
+143	249	7123629702732380	W:/ARWB_1/hall_speedometer_updated_withoutcomments/Debug/Exe/hall_speedometer.d43	9fafe391131196fe
+17	159	7124867009768769	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/drv.r43	1f0ead86514594af
+4	134	7124867009623212	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/main.r43	99cd8272c3d4fe5d
+11	156	7124867009788637	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/hal.r43	88315ebe6f5bb46e
+3	177	7124867668220344	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/main.r43	99cd8272c3d4fe5d
+3	142	7124868023350513	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/main.r43	99cd8272c3d4fe5d
+19	165	7124868023483269	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/drv.r43	1f0ead86514594af
+12	167	7124868023573470	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/hal.r43	88315ebe6f5bb46e
+169	332	7124868025048434	W:/ARWB_1/Hall_speedometer_Final/Debug/Exe/hall_speedometer.d43	b17157820575d46d
+96	2462	7124928736665241	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/drv.r43	1f0ead86514594af
+88	2487	7124928736769849	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/main.r43	99cd8272c3d4fe5d
+8	2492	7124928737136726	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/hal.r43	88315ebe6f5bb46e
+2493	2647	7124928738661011	W:/ARWB_1/Hall_speedometer_Final/Debug/Exe/hall_speedometer.d43	b17157820575d46d
+5	155	7124929360242717	W:/ARWB_1/Hall_speedometer_Final/Debug/Obj/hal.r43	88315ebe6f5bb46e
+158	266	7124929361389894	W:/ARWB_1/Hall_speedometer_Final/Debug/Exe/hall_speedometer.d43	b17157820575d46d
+15	513	7125138541985104	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/drv.r43	e6308c1710728547
+66	773	7125138544715644	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/main.r43	656f06e27118f1f4
+43	1116	7125138548111172	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/hal.r43	db9b07ab3ad29eb3
+1118	1335	7125138550267459	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Exe/hall_speedometer.d43	dd28c8c02c484251
+12	424	7126637024285787	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/drv.r43	e6308c1710728547
+30	617	7126637026237793	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/hal.r43	db9b07ab3ad29eb3
+620	768	7126637027735114	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Exe/hall_speedometer.d43	dd28c8c02c484251
+1	326	7126637649662620	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/main.r43	e360178dcf5e8171
+15	579	7126637652201919	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/hal.r43	55128450110f5fb9
+27	821	7126637654582146	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/drv.r43	ce058d24417b8549
+823	959	7126637655899868	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Exe/hall_speedometer.d43	dd28c8c02c484251
+3	616	7126782455796673	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/main.r43	e360178dcf5e8171
+29	912	7126782458882582	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/hal.r43	55128450110f5fb9
+55	1217	7126782461888533	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Obj/drv.r43	ce058d24417b8549
+1221	1456	7126782464289877	C:/Siddharth/Personal/Embedded C/IAR_programs/SpeedometerDesign/Debug/Exe/hall_speedometer.d43	dd28c8c02c484251

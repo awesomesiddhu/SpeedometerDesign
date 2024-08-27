@@ -1,0 +1,951 @@
+###############################################################################
+#
+# IAR UBROF Linker V10.12.4.1422                          02/Aug/2023  16:47:26
+# Copyright 1987-2022 IAR Systems AB.
+#
+#    Target Cpu    =  MSP430
+#    Map file      =
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\hall_speedometer.map"
+#    Output file 1 =
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Exe\hall_speedometer.d43"
+#                  =  Format: debug
+#                  =  UBROF version 11.1.1
+#                  =  Using library modules for C-SPY (-rt)
+#    Command line  =
+#        -f "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Exe\hall_speedometer.d43.rsp"
+#        ("C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\drv.r43"
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\hal.r43"
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\main.r43" --output
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Exe\hall_speedometer.d43" -l
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\hall_speedometer.map"
+#        -xams "-IC:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\430\LIB\\" --f "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\430\config\linker\lnk430g2553.xcl" (-cmsp430 -QCODE_I=CODE_ID
+#        -QTLS16_I=TLS16_ID "-Z(CONST)INFO=1000-10FF"
+#        "-Z(CONST)INFOA=10C0-10FF" "-Z(CONST)INFOB=1080-10BF"
+#        "-Z(CONST)INFOC=1040-107F" "-Z(CONST)INFOD=1000-103F"
+#        "-Z(DATA)DATA16_I,DATA16_Z,DATA16_N,TLS16_I=0200-03FF"
+#        "-Z(DATA)DATA16_HEAP+_DATA16_HEAP_SIZE" "-Z(DATA)CODE_I"
+#        "-Z(DATA)CSTACK+_STACK_SIZE#"
+#        "-Z(CONST)DATA16_C,DATA16_ID,TLS16_ID,DIFUNCT,CHECKSUM=C000-FFDD"
+#        "-Z(CODE)CSTART,ISR_CODE,CODE_ID=C000-FFDD" "-P(CODE)CODE=C000-FFDD"
+#        "-Z(CONST)SIGNATURE=FFDE-FFDF" "-Z(CODE)INTVEC=FFE0-FFFF"
+#        "-Z(CODE)RESET=FFFE-FFFF") -D_STACK_SIZE=50 -rt "C:\Program Files\IAR
+#        Systems\Embedded Workbench 9.1\430\lib\dlib\dl430fn.r43"
+#        -e_PrintfLarge=_Printf -e_ScanfLarge=_Scanf -D_DATA16_HEAP_SIZE=50
+#        --entry __program_start -D_DATA20_HEAP_SIZE=50 --text_out locale)
+#
+###############################################################################
+
+
+
+
+
+
+                ****************************************
+                *                                      *
+                *            PROGRAM ENTRY             *
+                *                                      *
+                ****************************************
+
+  ADDRESS  SPACE  TYPE         MODULE
+  -------  -----  ----         ------
+   0xC03E         Relocatable  ?cstart
+
+
+
+
+                ****************************************
+                *                                      *
+                *            RUNTIME MODEL             *
+                *                                      *
+                ****************************************
+
+  ATTRIBUTE                   VALUE
+  ---------                   -----
+  __Heap_Handler              Basic
+  __SystemLibrary             DLib
+  __core                      430
+  __dlib_file_descriptor      0
+  __dlib_full_locale_support  0
+  __double_size               32
+  __pic                       no
+  __reg_r4                    free
+  __reg_r5                    free
+  __rt_version                3
+
+
+                ****************************************
+                *                                      *
+                *    AUTOMATIC SYMBOL REDIRECTIONS     *
+                *                                      *
+                ****************************************
+
+                   There are no automatic symbol redirections.
+
+
+
+                ****************************************
+                *                                      *
+                *              ENTRY LIST              *
+                *                                      *
+                ****************************************
+
+ENTRY                   SPACE  ADDRESS  KIND  TYPE  MODULE
+-----                   -----  -------  ----  ----  ------
+_A_P1OUT                        0x0021  Pub   Data  drv
+P1OUT                           0x0021  Loc         drv
+P1OUT_bit                       0x0021  Loc         drv
+_A_P1DIR                        0x0022  Pub   Data  drv
+P1DIR                           0x0022  Loc         drv
+P1DIR_bit                       0x0022  Loc         drv
+_A_P1IFG                        0x0023  Pub   Data  drv
+P1IFG                           0x0023  Loc         drv
+P1IFG_bit                       0x0023  Loc         drv
+_A_P1IES                        0x0024  Pub   Data  drv
+P1IES                           0x0024  Loc         drv
+P1IES_bit                       0x0024  Loc         drv
+_A_P1IE                         0x0025  Pub   Data  drv
+P1IE                            0x0025  Loc         drv
+P1IE_bit                        0x0025  Loc         drv
+_DATA20_HEAP_SIZE               0x0050  Pub         ?ABS_ENTRY_MOD [0]
+_DATA16_HEAP_SIZE               0x0050  Pub         ?ABS_ENTRY_MOD [0]
+_STACK_SIZE                     0x0050  Pub         ?ABS_ENTRY_MOD [0]
+_A_WDTCTL                       0x0120  Pub   Data  main
+WDTCTL                          0x0120  Loc         main
+WDTCTL_bit                      0x0120  Loc         main
+pulse_count                     0x0200  Loc   Data  hal
+rpm                             0x0202  Loc   Data  hal
+circumference                   0x0204  Loc   Data  hal
+additional_CB                   0x0208  Loc   Data  hal
+__program_start                 0xC03E  Pub         ?cstart [1]
+?cstart_begin                   0xC03E  Pub         ?cstart [1]
+?cstart_init_zero               0xC042  Pub         ?cstart [1]
+?cstart_call_main               0xC04E  Pub         ?cstart [1]
+?cstart_end                     0xC056  Pub         ?cstart [1]
+LoadInt                         0xC056  Loc   Code  ?xprintflarge [1]
+_GenldLarge                     0xC0E4  Loc   Code  ?xprintflarge [1]
+scale                           0xC372  Loc   Code  ?xprintflarge [1]
+_LdtobLarge                     0xC3C4  Loc   Code  ?xprintflarge [1]
+_LitobLarge                     0xC616  Loc   Code  ?xprintflarge [1]
+_PrintfLarge                    0xC7E2  Pub   Code  ?xprintflarge [1]
+_Sub32f                         0xCC72  Pub         _Add32f [1]
+_Add32f                         0xCC76  Pub         _Add32f [1]
+_Div32f                         0xCDD6  Pub         _Div32f [1]
+_Mul32f                         0xCF06  Pub         _Mul32f [1]
+_Div64u                         0xD016  Pub   Code  ?div64i [1]
+_Cast32uto32f                   0xD0C6  Pub         ?Cast32f32i [1]
+?FLT_LT                         0xD144  Pub         ?FLT_LT [1]
+?FLT_Extract                    0xD196  Pub         ?FLT_Extract [1]
+__iar_Dunscale                  0xD1E2  Pub   Code  ?xdunscal [1]
+?DivMod32s                      0xD22A  Pub         ?DivMod32s [1]
+?DivMod32u                      0xD2A8  Pub         ?DivMod32u [1]
+pad                             0xD2E0  Loc   Code  ?xprintflarge [1]
+main                            0xD316  Pub   Code  main
+_Cast32fto32s                   0xD34C  Pub         _Cast32fto32s [1]
+?Mul8                           0xD37E  Pub         ?Mul816 [1]
+?Mul16                          0xD382  Pub         ?Mul816 [1]
+?Mul16to32u                     0xD382  Pub         ?Mul816 [1]
+getRPM                          0xD3B0  Pub   Code  hal
+?DivMod16s                      0xD3E0  Pub         ?DivMod816s [1]
+_PutcharsLarge                  0xD410  Loc   Code  ?xprintflarge [1]
+putchar                         0xD43C  Pub   Code  ?putchar [1]
+_PutcharLarge                   0xD464  Loc   Code  ?xprintflarge [1]
+getPPS                          0xD488  Pub   Code  hal
+Port_1_ISR                      0xD4AC  Pub   Code  drv
+__dwrite                        0xD4CC  Pub   Code  ?__dwrite [1]
+getSpeed_mps                    0xD4EC  Pub   Code  hal
+printf                          0xD50C  Pub   Code  ?printf [1]
+_Prout                          0xD528  Pub   Code  ?xprout [1]
+?Mul16to32s                     0xD55E  Pub         ?Mul16to32s [1]
+?ShiftRight16u_7                0xD578  Pub         ?ShiftRight16u_n [1]
+?ShiftRight16u_6                0xD57C  Pub         ?ShiftRight16u_n [1]
+?ShiftRight16u_5                0xD580  Pub         ?ShiftRight16u_n [1]
+?ShiftRight16u_4                0xD584  Pub         ?ShiftRight16u_n [1]
+?ShiftRight16u_3                0xD588  Pub         ?ShiftRight16u_n [1]
+?DivMod16u                      0xD592  Pub         ?DivMod816u [1]
+hal_setWheelDia                 0xD5AA  Pub   Code  hal
+drv_blinkLED                    0xD5C0  Pub   Code  drv
+div                             0xD5D6  Pub   Code  ?div [1]
+hal_process_HallSensor          0xD600  Pub   Code  hal
+__iar_Memchr                    0xD614  Pub   Code  ?memchr [1]
+hal_printSpeed_mps              0xD628  Pub   Code  hal
+__exit                          0xD63C  Pub   Code  ?__exit [1]
+hal_printRPM                    0xD660  Pub   Code  hal
+memcpy                          0xD672  Pub   Code  ?memcpy [1]
+hal_printPPS                    0xD684  Pub   Code  hal
+strlen                          0xD696  Pub   Code  ?strlen [1]
+__data16_memzero                0xD6A8  Pub   Code  ?memzero [1]
+?Epilogue6                      0xD6B8  Pub         ?Epilogue [1]
+?Epilogue5                      0xD6BA  Pub         ?Epilogue [1]
+?Epilogue4                      0xD6BC  Pub         ?Epilogue [1]
+?Epilogue3                      0xD6BE  Pub         ?Epilogue [1]
+drv_hallInit                    0xD6C6  Pub   Code  drv
+__iar_Strchr                    0xD6E2  Pub   Code  ?strchr [1]
+_Cast32fto32u                   0xD70A  Pub         _Cast32fto32u [1]
+__write                         0xD716  Pub   Code  ?__write [1]
+hal_isr_hallsensorCB            0xD72E  Pub   Code  hal
+drv_ledInit                     0xD738  Pub   Code  drv
+hal_blinkLED                    0xD742  Pub   Code  hal
+hal_hallInit                    0xD748  Pub   Code  hal
+hal_ledInit                     0xD74E  Pub   Code  hal
+resetPulseCount                 0xD754  Pub   Code  hal
+incPulseCount                   0xD75A  Pub   Code  hal
+hal_setCB_HallSensor            0xD760  Pub   Code  hal
+AppCB                           0xD766  Pub   Code  main
+exit                            0xD76C  Pub   Code  ?exit [1]
+_exit                           0xD770  Pub   Code  ?_exit [1]
+__DebugBreak                    0xD774  Pub   Code  ?__dbg_break [1]
+Port_1_ISR::??INTVEC 4          0xFFE4  Pub         drv
+?reset_vector                   0xFFFE  Pub         ?reset_vector [1]
+
+[0] = Command line (linker generated)
+[1] = C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430fn.r43
+
+
+                ****************************************
+                *                                      *
+                *              MODULE MAP              *
+                *                                      *
+                ****************************************
+
+Linker generated:
+  Module: ?FILLER_BYTES
+**************************************************************
+Linker generated:
+  Module: ?ABS_ENTRY_MOD
+
+      Absolute module symbols:
+        _DATA20_HEAP_SIZE  0x0050  Pub
+        _DATA16_HEAP_SIZE  0x0050  Pub
+        _STACK_SIZE        0x0050  Pub
+**************************************************************
+File: C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\Debug\Obj\drv.r43
+  Module: drv
+       Segment part 1, DATA16_AN [root]
+       Address:  0x0021 Size: 0x1 Align: 1(0)
+       Ref by:   drv_blinkLED
+                 drv_ledInit
+      _A_P1OUT             0x0021  Pub
+      P1OUT                0x0021  Loc
+      P1OUT_bit            0x0021  Loc
+    --------------------------------------------------
+       Segment part 2, DATA16_AN [root]
+       Address:  0x0022 Size: 0x1 Align: 1(0)
+       Ref by:   drv_hallInit
+                 drv_ledInit
+      _A_P1DIR             0x0022  Pub
+      P1DIR                0x0022  Loc
+      P1DIR_bit            0x0022  Loc
+    --------------------------------------------------
+       Segment part 3, DATA16_AN [root]
+       Address:  0x0023 Size: 0x1 Align: 1(0)
+       Ref by:   Port_1_ISR
+      _A_P1IFG             0x0023  Pub
+      P1IFG                0x0023  Loc
+      P1IFG_bit            0x0023  Loc
+    --------------------------------------------------
+       Segment part 4, DATA16_AN [root]
+       Address:  0x0024 Size: 0x1 Align: 1(0)
+       Ref by:   drv_hallInit
+      _A_P1IES             0x0024  Pub
+      P1IES                0x0024  Loc
+      P1IES_bit            0x0024  Loc
+    --------------------------------------------------
+       Segment part 5, DATA16_AN [root]
+       Address:  0x0025 Size: 0x1 Align: 1(0)
+       Ref by:   drv_hallInit
+      _A_P1IE              0x0025  Pub
+      P1IE                 0x0025  Loc
+      P1IE_bit             0x0025  Loc
+    --------------------------------------------------
+       Segment part 8, <CODE> 1
+                      (was CODE)
+       Address:  0xD738 Size: 0xA Align: 2(1)
+      drv_ledInit          0xD738  Pub  Ref by:   hal_ledInit (hal)
+    --------------------------------------------------
+       Segment part 9, <CODE> 1
+                      (was CODE)
+       Address:  0xD6C6 Size: 0xE Align: 2(1)
+      drv_hallInit         0xD6C6  Pub  Ref by:   hal_hallInit (hal)
+    --------------------------------------------------
+       Segment part 10, <CODE> 1
+                      (was CODE)
+       Address:  0xD5C0 Size: 0x16 Align: 2(1)
+      drv_blinkLED         0xD5C0  Pub  Ref by:   hal_blinkLED (hal)
+    --------------------------------------------------
+       Segment part 11, <CODE> 1
+                      (was CODE)
+       Address:  0xD4AC Size: 0x20 Align: 2(1)
+       Ref by:   Port_1_ISR::??INTVEC 4
+      Port_1_ISR           0xD4AC  Pub
+    --------------------------------------------------
+       Segment part 6, INTVEC [root]
+       Address:  0xFFE0 Size: 0x6 Align: 2(1)
+      Port_1_ISR::??INTVEC 4  0xFFE4  Pub
+**************************************************************
+File: C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\Debug\Obj\hal.r43
+  Module: hal
+       Segment part 5, DATA16_Z
+       Address:  0x0200 Size: 0x2 Align: 2(1)
+       Ref by:   incPulseCount
+                 getRPM
+                 getPPS
+                 resetPulseCount
+      pulse_count          0x0200  Loc
+    --------------------------------------------------
+       Segment part 6, DATA16_Z
+       Address:  0x0202 Size: 0x2 Align: 2(1)
+       Ref by:   getSpeed_mps
+                 getRPM
+      rpm                  0x0202  Loc
+    --------------------------------------------------
+       Segment part 7, DATA16_Z
+       Address:  0x0204 Size: 0x4 Align: 2(1)
+       Ref by:   getSpeed_mps
+                 hal_setWheelDia
+      circumference        0x0204  Loc
+    --------------------------------------------------
+       Segment part 8, DATA16_Z
+       Address:  0x0208 Size: 0x2 Align: 2(1)
+       Ref by:   hal_isr_hallsensorCB
+                 hal_setCB_HallSensor
+      additional_CB        0x0208  Loc
+    --------------------------------------------------
+       Segment part 9, <CODE> 1
+                      (was CODE)
+       Address:  0xD5AA Size: 0x16 Align: 2(1)
+      hal_setWheelDia      0xD5AA  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 10, <CODE> 1
+                      (was CODE)
+       Address:  0xD74E Size: 0x6 Align: 2(1)
+      hal_ledInit          0xD74E  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 11, <CODE> 1
+                      (was CODE)
+       Address:  0xD748 Size: 0x6 Align: 2(1)
+      hal_hallInit         0xD748  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 12, <CODE> 1
+                      (was CODE)
+       Address:  0xD754 Size: 0x6 Align: 2(1)
+       Ref by:   hal_process_HallSensor
+      resetPulseCount      0xD754  Pub
+    --------------------------------------------------
+       Segment part 13, <CODE> 1
+                      (was CODE)
+       Address:  0xD488 Size: 0x24 Align: 2(1)
+       Ref by:   hal_printPPS
+      getPPS               0xD488  Pub
+    --------------------------------------------------
+       Segment part 14, <CODE> 1
+                      (was CODE)
+       Address:  0xD3B0 Size: 0x30 Align: 2(1)
+       Ref by:   hal_printRPM
+      getRPM               0xD3B0  Pub
+    --------------------------------------------------
+       Segment part 15, <CODE> 1
+                      (was CODE)
+       Address:  0xD4EC Size: 0x20 Align: 2(1)
+       Ref by:   hal_printSpeed_mps
+      getSpeed_mps         0xD4EC  Pub
+    --------------------------------------------------
+       Segment part 16, <CODE> 1
+                      (was CODE)
+       Address:  0xD660 Size: 0x12 Align: 2(1)
+      hal_printRPM         0xD660  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 17, <CODE> 1
+                      (was CODE)
+       Address:  0xD684 Size: 0x12 Align: 2(1)
+      hal_printPPS         0xD684  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 18, <CODE> 1
+                      (was CODE)
+       Address:  0xD628 Size: 0x14 Align: 2(1)
+      hal_printSpeed_mps   0xD628  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 19, <CODE> 1
+                      (was CODE)
+       Address:  0xD742 Size: 0x6 Align: 2(1)
+      hal_blinkLED         0xD742  Pub  Ref by:   AppCB (main)
+    --------------------------------------------------
+       Segment part 20, <CODE> 1
+                      (was CODE)
+       Address:  0xD75A Size: 0x6 Align: 2(1)
+       Ref by:   hal_isr_hallsensorCB
+      incPulseCount        0xD75A  Pub
+    --------------------------------------------------
+       Segment part 21, <CODE> 1
+                      (was CODE)
+       Address:  0xD600 Size: 0x14 Align: 2(1)
+      hal_process_HallSensor  0xD600  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 22, <CODE> 1
+                      (was CODE)
+       Address:  0xD760 Size: 0x6 Align: 2(1)
+      hal_setCB_HallSensor  0xD760  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 23, <CODE> 1
+                      (was CODE)
+       Address:  0xD72E Size: 0xA Align: 2(1)
+      hal_isr_hallsensorCB  0xD72E  Pub  Ref by:   Port_1_ISR (drv)
+    --------------------------------------------------
+       Segment part 2, DATA16_C
+       Address:  0xC000 Size: 0x9 Align: 1(0)
+       Ref by:   hal_printRPM
+    --------------------------------------------------
+       Segment part 3, DATA16_C
+       Address:  0xC009 Size: 0x9 Align: 1(0)
+       Ref by:   hal_printPPS
+    --------------------------------------------------
+       Segment part 4, DATA16_C
+       Address:  0xC012 Size: 0x13 Align: 1(0)
+       Ref by:   hal_printSpeed_mps
+**************************************************************
+File: C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\Debug\Obj\main.r43
+  Module: main
+       Segment part 1, DATA16_AN [root]
+       Address:  0x0120 Size: 0x2 Align: 1(0)
+       Ref by:   main
+      _A_WDTCTL            0x0120  Pub
+      WDTCTL               0x0120  Loc
+      WDTCTL_bit           0x0120  Loc
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xD316 Size: 0x36 Align: 2(1)
+      main                 0xD316  Pub  Ref by:   Segment part 19 (?cstart)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xD766 Size: 0x6 Align: 2(1)
+       Ref by:   main
+      AppCB                0xD766  Pub
+**************************************************************
+File: C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430fn.r43
+  Module: ?abort
+  ============================================================
+  Module: ?__dbg_break
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD774 Size: 0x2 Align: 2(1)
+      __DebugBreak         0xD774  Pub  Ref by:   __exit (?__exit)
+                                                  __dwrite (?__dwrite)
+  ============================================================
+  Module: ?__dwrite
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD4CC Size: 0x20 Align: 2(1)
+      __dwrite             0xD4CC  Pub  Ref by:   __write (?__write)
+  ============================================================
+  Module: ?__exit
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD63C Size: 0x12 Align: 2(1)
+      __exit               0xD63C  Pub  Ref by:   Segment part 6 (?_exit)
+                                                  _exit (?_exit)
+  ============================================================
+  Module: ?__write
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD716 Size: 0xC Align: 2(1)
+      __write              0xD716  Pub  Ref by:   putchar (?putchar)
+  ============================================================
+  Module: ?_exit
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD770 Size: 0x0 Align: 2(1)
+      _exit                0xD770  Pub  Ref by:   exit (?exit)
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xD770 Size: 0x4 Align: 2(1)
+       Ref by:   _exit
+  ============================================================
+  Module: ?cppinit
+  ============================================================
+  Module: ?cstart
+       Segment part 1, CSTACK
+       Address:  0x03B0 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 2, DATA16_Z
+       Address:  0x020A Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 9, CSTART
+       Address:  0xC03E Size: 0x4 Align: 2(1)
+      __program_start      0xC03E  Pub  Ref by:   ?reset_vector (?reset_vector)
+                                                  Absolute parts (?ABS_ENTRY_MOD)
+      ?cstart_begin        0xC03E  Pub
+    --------------------------------------------------
+       Segment part 14, CSTART
+       Address:  0xC042 Size: 0xC Align: 2(1)
+      ?cstart_init_zero    0xC042  Pub  Ref by:   additional_CB (hal)
+                                                  circumference (hal)
+                                                  rpm (hal)
+                                                  pulse_count (hal)
+    --------------------------------------------------
+       Segment part 19, CSTART
+       Address:  0xC04E Size: 0x8 Align: 2(1)
+       Ref by:   Segment part 9
+      ?cstart_call_main    0xC04E  Pub
+      ?cstart_end          0xC056  Pub
+  ============================================================
+  Module: lowinit
+  ============================================================
+  Module: ?reset_vector
+       Segment part 0, RESET
+       Address:  0xFFFE Size: 0x2 Align: 2(1)
+      ?reset_vector        0xFFFE  Pub  Ref by:   Segment part 9 (?cstart)
+  ============================================================
+  Module: ?div64i
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD016 Size: 0xB0 Align: 2(1)
+      _Div64u              0xD016  Pub  Ref by:   _LitobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xD544 Size: 0x1A Align: 2(1)
+       Ref by:   _Div64u
+  ============================================================
+  Module: ?div
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD5D6 Size: 0x16 Align: 2(1)
+      div                  0xD5D6  Pub  Ref by:   _GenldLarge (?xprintflarge)
+  ============================================================
+  Module: ?Epilogue
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD6B8 Size: 0x2 Align: 2(1)
+      ?Epilogue6           0xD6B8  Pub  Ref by:   _LitobLarge (?xprintflarge)
+                                                  _LdtobLarge (?xprintflarge)
+                                                  _GenldLarge (?xprintflarge)
+                                                  _PrintfLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xD6BA Size: 0x2 Align: 2(1)
+       Ref by:   ?Epilogue6
+      ?Epilogue5           0xD6BA  Pub
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xD6BC Size: 0x2 Align: 2(1)
+       Ref by:   ?Epilogue5
+      ?Epilogue4           0xD6BC  Pub  Ref by:   _PutcharsLarge (?xprintflarge)
+                                                  pad (?xprintflarge)
+    --------------------------------------------------
+       Segment part 5, <CODE> 1
+                      (was CODE)
+       Address:  0xD6BE Size: 0x8 Align: 2(1)
+       Ref by:   ?Epilogue4
+      ?Epilogue3           0xD6BE  Pub
+  ============================================================
+  Module: ?exit
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD76C Size: 0x4 Align: 2(1)
+      exit                 0xD76C  Pub  Ref by:   Segment part 19 (?cstart)
+  ============================================================
+  Module: ?FrwpInit
+  ============================================================
+  Module: ?Cast32f32i
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xD0C6 Size: 0x7E Align: 2(1)
+      _Cast32uto32f        0xD0C6  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                  getSpeed_mps (hal)
+                                                  getRPM (hal)
+                                                  getPPS (hal)
+  ============================================================
+  Module: _Cast32fto32u
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD70A Size: 0xC Align: 2(1)
+      _Cast32fto32u        0xD70A  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Cast32fto32s
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD34C Size: 0x32 Align: 2(1)
+      _Cast32fto32s        0xD34C  Pub  Ref by:   getRPM (hal)
+                                                  getPPS (hal)
+  ============================================================
+  Module: ?FLT_Extract
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD196 Size: 0x4C Align: 2(1)
+      ?FLT_Extract         0xD196  Pub  Ref by:   _Cast32fto32s (_Cast32fto32s)
+                                                  _Cast32fto32u (_Cast32fto32u)
+  ============================================================
+  Module: ?FLT_LT
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD144 Size: 0x52 Align: 2(1)
+      ?FLT_LT              0xD144  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Mul32f
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xCF06 Size: 0x110 Align: 2(1)
+      _Mul32f              0xCF06  Pub  Ref by:   hal_setWheelDia (hal)
+                                                  getPPS (hal)
+                                                  getRPM (hal)
+                                                  getSpeed_mps (hal)
+                                                  scale (?xprintflarge)
+                                                  _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Div32f
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xCDD6 Size: 0x130 Align: 2(1)
+      _Div32f              0xCDD6  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                  getSpeed_mps (hal)
+                                                  getRPM (hal)
+                                                  getPPS (hal)
+  ============================================================
+  Module: _Add32f
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xCC72 Size: 0x4 Align: 2(1)
+      _Sub32f              0xCC72  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xCC76 Size: 0x160 Align: 2(1)
+       Ref by:   _Sub32f
+      _Add32f              0xCC76  Pub
+  ============================================================
+  Module: ?malloc
+  ============================================================
+  Module: ?Mul816
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD37E Size: 0x4 Align: 2(1)
+      ?Mul8                0xD37E  Pub  Ref by:   _LitobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xD382 Size: 0x2E Align: 2(1)
+       Ref by:   ?Mul8
+      ?Mul16               0xD382  Pub
+      ?Mul16to32u          0xD382  Pub  Ref by:   ?Mul16to32s (?Mul16to32s)
+  ============================================================
+  Module: ?Mul16to32s
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD55E Size: 0x1A Align: 2(1)
+      ?Mul16to32s          0xD55E  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?DivMod816u
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xD592 Size: 0x18 Align: 2(1)
+      ?DivMod16u           0xD592  Pub  Ref by:   ?DivMod16s (?DivMod816s)
+  ============================================================
+  Module: ?DivMod816s
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xD3E0 Size: 0x30 Align: 2(1)
+      ?DivMod16s           0xD3E0  Pub  Ref by:   div (?div)
+  ============================================================
+  Module: ?DivMod32u
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD2A8 Size: 0x38 Align: 2(1)
+      ?DivMod32u           0xD2A8  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                  ?DivMod32s (?DivMod32s)
+  ============================================================
+  Module: ?DivMod32s
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD22A Size: 0x40 Align: 2(1)
+      ?DivMod32s           0xD22A  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?ShiftLeft32_n
+  ============================================================
+  Module: ?ShiftRight16u_n
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xD578 Size: 0x4 Align: 2(1)
+      ?ShiftRight16u_7     0xD578  Pub  Ref by:   __iar_Dunscale (?xdunscal)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xD57C Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight16u_7
+      ?ShiftRight16u_6     0xD57C  Pub
+    --------------------------------------------------
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD580 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight16u_6
+      ?ShiftRight16u_5     0xD580  Pub
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xD584 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight16u_5
+      ?ShiftRight16u_4     0xD584  Pub
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xD588 Size: 0xA Align: 2(1)
+       Ref by:   ?ShiftRight16u_4
+      ?ShiftRight16u_3     0xD588  Pub
+  ============================================================
+  Module: ?memchr
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD614 Size: 0x14 Align: 2(1)
+      __iar_Memchr         0xD614  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?memcpy
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD672 Size: 0x12 Align: 2(1)
+      memcpy               0xD672  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                  Segment part 11 (?xprintflarge)
+                                                  _GenldLarge (?xprintflarge)
+  ============================================================
+  Module: ?memmove
+  ============================================================
+  Module: ?memzero
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD6A8 Size: 0x10 Align: 2(1)
+      __data16_memzero     0xD6A8  Pub  Ref by:   ?cstart_init_zero (?cstart)
+  ============================================================
+  Module: ?MpuInit
+  ============================================================
+  Module: ?printf
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD50C Size: 0x1C Align: 2(1)
+      printf               0xD50C  Pub  Ref by:   hal_printSpeed_mps (hal)
+                                                  hal_printPPS (hal)
+                                                  hal_printRPM (hal)
+  ============================================================
+  Module: ?putchar
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD43C Size: 0x28 Align: 2(1)
+      putchar              0xD43C  Pub  Ref by:   _Prout (?xprout)
+  ============================================================
+  Module: ?setjmp
+  ============================================================
+  Module: ?longjmp
+  ============================================================
+  Module: ?strchr
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD6E2 Size: 0xE Align: 2(1)
+      __iar_Strchr         0xD6E2  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?strlen
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD696 Size: 0x12 Align: 2(1)
+      strlen               0xD696  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?SwitchKey8
+  ============================================================
+  Module: ?xcloseall
+  ============================================================
+  Module: ?xdunscal
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD1E2 Size: 0x48 Align: 2(1)
+      __iar_Dunscale       0xD1E2  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?xgetmemchunk
+  ============================================================
+  Module: ?xprintflarge
+       Segment part 18, <CODE> 1
+                      (was CODE)
+       Address:  0xC7E2 Size: 0x490 Align: 2(1)
+      _PrintfLarge         0xC7E2  Pub  Ref by:   printf (?printf)
+    --------------------------------------------------
+       Segment part 20, <CODE> 1
+                      (was CODE)
+       Address:  0xD722 Size: 0xC Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 22, <CODE> 1
+                      (was CODE)
+       Address:  0xD6FE Size: 0xC Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 25, <CODE> 1
+                      (was CODE)
+       Address:  0xD5EC Size: 0x14 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 8, <CODE> 1
+                      (was CODE)
+       Address:  0xC056 Size: 0x80 Align: 2(1)
+       Ref by:   _PrintfLarge
+      LoadInt              0xC056  Loc
+    --------------------------------------------------
+       Segment part 9, <CODE> 1
+                      (was CODE)
+       Address:  0xC0D6 Size: 0xE Align: 2(1)
+       Ref by:   LoadInt
+    --------------------------------------------------
+       Segment part 10, <CODE> 1
+                      (was CODE)
+       Address:  0xC0E4 Size: 0x260 Align: 2(1)
+       Ref by:   _LdtobLarge
+      _GenldLarge          0xC0E4  Loc
+    --------------------------------------------------
+       Segment part 11, <CODE> 1
+                      (was CODE)
+       Address:  0xC344 Size: 0x10 Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 12, <CODE> 1
+                      (was CODE)
+       Address:  0xC354 Size: 0x1E Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 13, <CODE> 1
+                      (was CODE)
+       Address:  0xC372 Size: 0x52 Align: 2(1)
+       Ref by:   _LdtobLarge
+      scale                0xC372  Loc
+    --------------------------------------------------
+       Segment part 14, <CODE> 1
+                      (was CODE)
+       Address:  0xC3C4 Size: 0x252 Align: 2(1)
+       Ref by:   _PrintfLarge
+      _LdtobLarge          0xC3C4  Loc
+    --------------------------------------------------
+       Segment part 15, <CODE> 1
+                      (was CODE)
+       Address:  0xC616 Size: 0x1B0 Align: 2(1)
+       Ref by:   _PrintfLarge
+      _LitobLarge          0xC616  Loc
+    --------------------------------------------------
+       Segment part 16, <CODE> 1
+                      (was CODE)
+       Address:  0xC7C6 Size: 0x12 Align: 2(1)
+       Ref by:   _LitobLarge
+    --------------------------------------------------
+       Segment part 17, <CODE> 1
+                      (was CODE)
+       Address:  0xC7D8 Size: 0xA Align: 2(1)
+       Ref by:   _LitobLarge
+                 LoadInt
+                 _PrintfLarge
+    --------------------------------------------------
+       Segment part 26, <CODE> 1
+                      (was CODE)
+       Address:  0xD2E0 Size: 0x36 Align: 2(1)
+       Ref by:   Segment part 22
+      pad                  0xD2E0  Loc
+    --------------------------------------------------
+       Segment part 27, <CODE> 1
+                      (was CODE)
+       Address:  0xD464 Size: 0x24 Align: 2(1)
+       Ref by:   _PutcharsLarge
+                 _PrintfLarge
+      _PutcharLarge        0xD464  Loc
+    --------------------------------------------------
+       Segment part 28, <CODE> 1
+                      (was CODE)
+       Address:  0xD410 Size: 0x2C Align: 2(1)
+       Ref by:   pad
+                 Segment part 20
+      _PutcharsLarge       0xD410  Loc
+    --------------------------------------------------
+       Segment part 19, <CODE> 1
+                      (was CODE)
+       Address:  0xD6D4 Size: 0xE Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 21, <CODE> 1
+                      (was CODE)
+       Address:  0xD6F0 Size: 0xE Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 23, <CODE> 1
+                      (was CODE)
+       Address:  0xD64E Size: 0x12 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 24, <CODE> 1
+                      (was CODE)
+       Address:  0xD26A Size: 0x3E Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 2, DATA16_C
+       Address:  0xC025 Size: 0x7 Align: 1(0)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 3, DATA16_C
+       Address:  0xC02C Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 4, DATA16_C
+       Address:  0xC030 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 5, DATA16_C
+       Address:  0xC034 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 6, DATA16_C
+       Address:  0xC038 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 7, DATA16_C
+       Address:  0xC03C Size: 0x2 Align: 1(0)
+       Ref by:   _GenldLarge
+  ============================================================
+  Module: ?xprout
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xD528 Size: 0x1C Align: 2(1)
+      _Prout               0xD528  Pub  Ref by:   printf (?printf)
+  ============================================================
+  Module: ?xxmemxfree
+  ============================================================
+  Module: ?xxmemxmalloc
+
+
+                ****************************************
+                *                                      *
+                *      SEGMENTS IN ADDRESS ORDER       *
+                *                                      *
+                ****************************************
+
+SEGMENT    SPACE    START/END ADDRESS      SIZE  TYPE  ALIGN
+-------    -----  ---------------------    ----  ----  -----
+DATA16_I                 0x0200                   dse   1(0)
+DATA16_Z             0x0200 - 0x0209        0xA   rel   2(1)
+CSTACK               0x03B0 - 0x03FF       0x50   rel   2(1)
+DATA16_C             0xC000 - 0xC03D       0x3E   rel   1(0)
+CSTART               0xC03E - 0xC055       0x18   rel   2(1)
+<CODE> 1             0xC056 - 0xD775     0x1720   rel   2(1)
+INTVEC               0xFFE0 - 0xFFE5        0x6   com   2(1)
+RESET                0xFFFE - 0xFFFF        0x2   rel   2(1)
+DATA16_AN            0x0021 - 0x0025        0x5   abs   1(0)
+                     0x0120 - 0x0121        0x2
+
+ 5'952 bytes of CODE  memory
+    90 bytes of DATA  memory (+ 7 absolute )
+    62 bytes of CONST memory
+
+Errors: none
+Warnings: none

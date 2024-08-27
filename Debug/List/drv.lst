@@ -1,0 +1,243 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V8.10.2.1069/W32 for MSP430          02/Aug/2023  16:47:26
+# Copyright 1996-2022 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 8.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430
+#    Source file   =  
+#        C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\drv.c
+#    Command line  =  
+#        -f "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\drv.r43.rsp"
+#        ("C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\drv.c" --preprocess=cl
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\\" -lCN
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\\" -o
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --debug -D__MSP430G2553__ -e
+#        --double=32 --dlib_config "C:\Program Files\IAR Systems\Embedded
+#        Workbench 9.1\430\lib\dlib\dl430fn.h" -Ol) --dependencies=n
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\drv.r43.iar_deps"
+#    Locale        =  English_USA.1252
+#    List file     =  
+#        C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\\drv.lst
+#    Object file   =  
+#        C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\\drv.r43
+#
+###############################################################################
+
+C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\drv.c
+      1          /*************************************************************************/
+      2          /*  File name: 	drv.c
+      3          *
+      4          *  Purpose:	Hardware Driver Layer which defines ports, directly
+      5          *               interacts with the Hall Sensor, LED and Timer and
+      6          *               defines Interrupt Service Routines.
+      7          *
+      8          *  Owner:  	Srividya Prasad, Siddharth D Srinivas, Gaurav Sai Palasari
+      9          *
+     10          *  Department:   ECE, ECE, EEE
+     11          *
+     12          *  Version History:
+     13          *  V4.0  30 July, 2023        Final version created
+     14          */
+     15          /******************************************************************************/
+     16          
+     17          #include "drv.h"
+
+   \                                 In  segment DATA16_AN, at 0x21
+   \   union <unnamed> volatile _A_P1OUT
+   \                     _A_P1OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x22
+   \   union <unnamed> volatile _A_P1DIR
+   \                     _A_P1DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x23
+   \   union <unnamed> volatile _A_P1IFG
+   \                     _A_P1IFG:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x24
+   \   union <unnamed> volatile _A_P1IES
+   \                     _A_P1IES:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x25
+   \   union <unnamed> volatile _A_P1IE
+   \                     _A_P1IE:
+   \   000000                DS8 1
+     18          #include "hal.h"
+     19          
+     20          /*******************************************
+     21          
+     22            Name: drv_ledInit
+     23            Parameters: None
+     24            Return: None
+     25            Description: Initializes the LED pin as an output and turns off the LED.*/
+     26          
+
+   \                                 In  segment CODE, align 2
+     27          void drv_ledInit() 
+   \                     drv_ledInit:
+     28          {
+     29            // Configure LED pin as output
+     30            P1DIR |= LED_PIN;
+   \   000000   D2D32200     BIS.B   #0x1, &0x22
+     31            P1OUT &= ~LED_PIN;
+   \   000004   D2C32100     BIC.B   #0x1, &0x21
+     32          }
+   \   000008   3041         RET
+   \   00000A                REQUIRE _A_P1DIR
+   \   00000A                REQUIRE _A_P1OUT
+     33          
+     34          /*******************************************
+     35          
+     36            Name: drv_hallInit
+     37            Parameters: None
+     38            Return: None
+     39            Description: Initializes the Hall effect sensor pin as an input with 
+     40            interrupt on rising edge.*/
+     41          
+
+   \                                 In  segment CODE, align 2
+     42          void drv_hallInit()
+   \                     drv_hallInit:
+     43          {
+     44            // Configure Hall effect sensor pin as input with interrupt
+     45            P1DIR &= ~HALL_SENSOR_PIN;
+   \   000000   F2C22200     BIC.B   #0x8, &0x22
+     46            // P1IES |= HALL_SENSOR_PIN; // Interrupt on falling edge
+     47            P1IES &= ~HALL_SENSOR_PIN; //Interrupt on rising edge 
+   \   000004   F2C22400     BIC.B   #0x8, &0x24
+     48            P1IE |= HALL_SENSOR_PIN;  // Enable interrupt for the pin
+   \   000008   F2D22500     BIS.B   #0x8, &0x25
+     49          }
+   \   00000C   3041         RET
+   \   00000E                REQUIRE _A_P1DIR
+   \   00000E                REQUIRE _A_P1IES
+   \   00000E                REQUIRE _A_P1IE
+     50          
+     51          /*******************************************
+     52          
+     53            Name: drv_blinkLED
+     54            Parameters: None
+     55            Return: None
+     56            Description: Toggles the state of the LED, creating a blinking effect.*/
+     57          
+
+   \                                 In  segment CODE, align 2
+     58          void drv_blinkLED()
+   \                     drv_blinkLED:
+     59          {
+     60            P1OUT ^= LED_PIN; // Toggle the LED
+   \   000000   D2E32100     XOR.B   #0x1, &0x21
+     61            for(int i=0;i<=200;i++);
+   \   000004   0F43         MOV.W   #0x0, R15
+   \   000006   013C         JMP     ??drv_blinkLED_1
+   \                     ??drv_blinkLED_0:
+   \   000008   1F53         ADD.W   #0x1, R15
+   \                     ??drv_blinkLED_1:
+   \   00000A   3F90C900     CMP.W   #0xc9, R15
+   \   00000E   FC3B         JL      ??drv_blinkLED_0
+     62            P1OUT ^= LED_PIN; // Toggle the LED
+   \   000010   D2E32100     XOR.B   #0x1, &0x21
+     63          }
+   \   000014   3041         RET
+   \   000016                REQUIRE _A_P1OUT
+     64          
+     65          /*******************************************
+     66          
+     67            Name: Port_1_ISR
+     68            Parameters: None
+     69            Return: None
+     70            Description: Interrupt service routine for Port 1. Handles the interrupt
+     71            from the Hall effect sensor pin, clears the interrupt flag, 
+     72            and calls the hal_isr_hallsensorCB() function. */
+     73          
+     74          // Port 1 interrupt service routine
+     75          #pragma vector = PORT1_VECTOR
+
+   \                                 In  segment CODE, align 2
+     76          __interrupt void Port_1_ISR(void)
+   \                     Port_1_ISR:
+     77          {
+   \   000000   0D12         PUSH.W  R13
+   \   000002   0C12         PUSH.W  R12
+   \   000004   0F12         PUSH.W  R15
+   \   000006   0E12         PUSH.W  R14
+     78            if (P1IFG & HALL_SENSOR_PIN) // Check if the interrupt is from the Hall effect sensor pin
+   \   000008   F2B22300     BIT.B   #0x8, &0x23
+   \   00000C   0428         JNC     ??Port_1_ISR_0
+     79            {
+     80              P1IFG &= ~HALL_SENSOR_PIN; // Clear the interrupt flag
+   \   00000E   F2C22300     BIC.B   #0x8, &0x23
+     81              
+     82              hal_isr_hallsensorCB();
+   \   000012   B012....     CALL    #hal_isr_hallsensorCB
+     83            }
+     84          }
+   \                     ??Port_1_ISR_0:
+   \   000016   3E41         POP.W   R14
+   \   000018   3F41         POP.W   R15
+   \   00001A   3C41         POP.W   R12
+   \   00001C   3D41         POP.W   R13
+   \   00001E   0013         RETI
+   \   000020                REQUIRE _A_P1IFG
+
+   \                                 In  segment INTVEC, offset 0x4, root
+   \                     `??Port_1_ISR::??INTVEC 4`:
+   \   000004   ....         DC16    Port_1_ISR
+     85          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+     12   Port_1_ISR
+       12   -> hal_isr_hallsensorCB
+      2   drv_blinkLED
+      2   drv_hallInit
+      2   drv_ledInit
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      32  Port_1_ISR
+       2  Port_1_ISR::??INTVEC 4
+       1  _A_P1DIR
+       1  _A_P1IE
+       1  _A_P1IES
+       1  _A_P1IFG
+       1  _A_P1OUT
+      22  drv_blinkLED
+      14  drv_hallInit
+      10  drv_ledInit
+
+ 
+ 78 bytes in segment CODE
+  5 bytes in segment DATA16_AN
+  2 bytes in segment INTVEC
+ 
+ 78 bytes of CODE  memory
+  0 bytes of CONST memory (+ 2 bytes shared)
+  0 bytes of DATA  memory (+ 5 bytes shared)
+
+Errors: none
+Warnings: none

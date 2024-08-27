@@ -1,0 +1,512 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V8.10.2.1069/W32 for MSP430          02/Aug/2023  16:47:25
+# Copyright 1996-2022 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 8.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430
+#    Source file   =  
+#        C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\hal.c
+#    Command line  =  
+#        -f "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\hal.r43.rsp"
+#        ("C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\hal.c" --preprocess=cl
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\\" -lCN
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\\" -o
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --debug -D__MSP430G2553__ -e
+#        --double=32 --dlib_config "C:\Program Files\IAR Systems\Embedded
+#        Workbench 9.1\430\lib\dlib\dl430fn.h" -Ol) --dependencies=n
+#        "C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\hal.r43.iar_deps"
+#    Locale        =  English_USA.1252
+#    List file     =  
+#        C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\List\\hal.lst
+#    Object file   =  
+#        C:\Siddharth\Personal\Embedded
+#        C\IAR_programs\SpeedometerDesign\Debug\Obj\\hal.r43
+#
+###############################################################################
+
+C:\Siddharth\Personal\Embedded C\IAR_programs\SpeedometerDesign\hal.c
+      1          /*************************************************************************/
+      2          /*  File name: 	hal.c
+      3          *
+      4          *  Purpose:	Hardware Abstraction Layer where the services are
+      5          *              defined, acting as an interface between Hardware 
+      6          *              Driver Layer and Application.
+      7          *
+      8          *  Owner:  	Srividya Prasad, Siddharth D Srinivas, Gaurav Sai Palasari
+      9          *
+     10          *  Department:   ECE, ECE, EEE
+     11          *
+     12          *  Version History:
+     13          *  V4.0  30 July, 2023        Final version created
+     14          */
+     15          /******************************************************************************/
+     16          
+     17          #include "hal.h"
+     18          #include "drv.h"
+     19          
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     20          static volatile UINT16 pulse_count = 0; // Number of pulses detected by the hall sensor and updated with interrupts
+   \                     pulse_count:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     21          static UINT16 rpm = 0; // Calculated RPM (Revolutions Per Minute)
+   \                     rpm:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     22          static FLOAT32 circumference; // Circumference of the wheel
+   \                     circumference:
+   \   000000                DS8 4
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     23          static p_fHallSensorCallback_t additional_CB; // Function pointer for additional callback function 
+   \                     additional_CB:
+   \   000000                DS8 2
+     24          
+     25          /***********************************
+     26          
+     27            Name: hal_setWheelDia
+     28            Parameters: float wd (wheel diameter in meters)
+     29            Return: void
+     30            Description: Sets the wheel diameter to calculate the circumference, required for speed calculations. */
+     31          
+
+   \                                 In  segment CODE, align 2
+     32          void hal_setWheelDia(float wd)
+   \                     hal_setWheelDia:
+     33          {
+     34            circumference = 3.14 * wd;
+   \   000000   3E40C3F5     MOV.W   #0xf5c3, R14
+   \   000004   3F404840     MOV.W   #0x4048, R15
+   \   000008   B012....     CALL    #_Mul32f
+   \   00000C   824C....     MOV.W   R12, &circumference
+   \   000010   824D....     MOV.W   R13, &circumference + 2
+     35          }
+   \   000014   3041         RET
+     36          
+     37          /***********************************
+     38          
+     39            Name: hal_ledInit
+     40            Parameters: None
+     41            Return: void
+     42            Description: Initializes the LED module for controlling the status LED.*/
+     43          
+
+   \                                 In  segment CODE, align 2
+     44          void hal_ledInit()
+   \                     hal_ledInit:
+     45          {
+     46            drv_ledInit();
+   \   000000   B012....     CALL    #drv_ledInit
+     47          }
+   \   000004   3041         RET
+     48          
+     49          /***********************************
+     50          
+     51            Name: hal_hallInit
+     52            Parameters: None
+     53            Return: void
+     54            Description: Initializes the hall sensor module to detect pulses from the sensor. */
+     55          
+
+   \                                 In  segment CODE, align 2
+     56          void hal_hallInit()
+   \                     hal_hallInit:
+     57          {
+     58            drv_hallInit();
+   \   000000   B012....     CALL    #drv_hallInit
+     59          }
+   \   000004   3041         RET
+     60          
+     61          /***********************************
+     62          
+     63            Name: resetPulseCount
+     64            Parameters: None
+     65            Return: void
+     66            Description: Resets the pulse count variable to zero, used to track the number of pulses from the hall sensor. */
+     67          
+
+   \                                 In  segment CODE, align 2
+     68          void resetPulseCount()
+   \                     resetPulseCount:
+     69          {
+     70            pulse_count = 0;   // Reset pulse count
+   \   000000   8243....     MOV.W   #0x0, &pulse_count
+     71          }
+   \   000004   3041         RET
+     72          
+     73          /***********************************
+     74          
+     75          Name: getPPS
+     76          Parameters: None
+     77          Return: UINT16 (Pulses Per Second)
+     78          Description: Calculates and returns the number of pulses detected per second based on the pulse count and sample period. */
+     79          
+
+   \                                 In  segment CODE, align 2
+     80          UINT16 getPPS()
+   \                     getPPS:
+     81          {
+     82            // Calculate pulses/sec
+     83            return (int)((float)pulse_count * 1000 / (SAMPLE_PERIOD*1000));
+   \   000000   1C42....     MOV.W   &pulse_count, R12
+   \   000004   0D43         MOV.W   #0x0, R13
+   \   000006   B012....     CALL    #_Cast32uto32f
+   \   00000A   0E43         MOV.W   #0x0, R14
+   \   00000C   3F407A44     MOV.W   #0x447a, R15
+   \   000010   B012....     CALL    #_Mul32f
+   \   000014   3E400080     MOV.W   #0x8000, R14
+   \   000018   3F403B45     MOV.W   #0x453b, R15
+   \   00001C   B012....     CALL    #_Div32f
+   \   000020   3040....     BR      #_Cast32fto32s
+     84          }
+     85          
+     86          /***********************************
+     87          
+     88            Name: getRPM
+     89            Parameters: None
+     90            Return: UINT16 (Revolutions Per Minute)
+     91            Description: Calculates and returns the RPM (Revolutions Per Minute) based on the pulse count and sample period. */
+     92          
+
+   \                                 In  segment CODE, align 2
+     93          UINT16 getRPM()
+   \                     getRPM:
+     94          {
+     95            // Calculate RPM
+     96            rpm = (int)((float)pulse_count * 60000 / (SAMPLE_PERIOD*1000));
+   \   000000   1C42....     MOV.W   &pulse_count, R12
+   \   000004   0D43         MOV.W   #0x0, R13
+   \   000006   B012....     CALL    #_Cast32uto32f
+   \   00000A   3E400060     MOV.W   #0x6000, R14
+   \   00000E   3F406A47     MOV.W   #0x476a, R15
+   \   000012   B012....     CALL    #_Mul32f
+   \   000016   3E400080     MOV.W   #0x8000, R14
+   \   00001A   3F403B45     MOV.W   #0x453b, R15
+   \   00001E   B012....     CALL    #_Div32f
+   \   000022   B012....     CALL    #_Cast32fto32s
+   \   000026   824C....     MOV.W   R12, &rpm
+     97            return rpm;
+   \   00002A   1C42....     MOV.W   &rpm, R12
+   \   00002E   3041         RET
+     98          }
+     99          
+    100          /***********************************
+    101          
+    102            Name: getSpeed_mps
+    103            Parameters: None
+    104            Return: FLOAT32 (Speed in meters per second)
+    105            Description: Calculates and returns the speed of the wheel in meters per second using the circumference and RPM values. */
+    106          
+
+   \                                 In  segment CODE, align 2
+    107          FLOAT32 getSpeed_mps()
+   \                     getSpeed_mps:
+    108          {
+    109            // Calculate Speed in m/s
+    110            return ((circumference*rpm)/60);
+   \   000000   1C42....     MOV.W   &rpm, R12
+   \   000004   0D43         MOV.W   #0x0, R13
+   \   000006   B012....     CALL    #_Cast32uto32f
+   \   00000A   1E42....     MOV.W   &circumference, R14
+   \   00000E   1F42....     MOV.W   &circumference + 2, R15
+   \   000012   B012....     CALL    #_Mul32f
+   \   000016   0E43         MOV.W   #0x0, R14
+   \   000018   3F407042     MOV.W   #0x4270, R15
+   \   00001C   3040....     BR      #_Div32f
+    111          }
+    112          
+    113          /***********************************
+    114          
+    115            Name: hal_printRPM
+    116            Parameters: None
+    117            Return: void
+    118            Description: Prints the RPM value to the console using printf. */
+    119          
+
+   \                                 In  segment CODE, align 2
+    120          void hal_printRPM()
+   \                     hal_printRPM:
+    121          {
+    122            printf("RPM: %d\n",getRPM()); 
+   \   000000   B012....     CALL    #getRPM
+   \   000004   0C12         PUSH.W  R12
+   \   000006   3C40....     MOV.W   #`?<Constant "RPM: %d\\n">`, R12
+   \   00000A   B012....     CALL    #printf
+    123          }
+   \   00000E   2153         ADD.W   #0x2, SP
+   \   000010   3041         RET
+    124          
+    125          /***********************************
+    126          
+    127            Name: hal_printPPS
+    128            Parameters: None
+    129            Return: void
+    130            Description: Prints the PPS value to the console using printf. */
+    131          
+
+   \                                 In  segment CODE, align 2
+    132          void hal_printPPS()
+   \                     hal_printPPS:
+    133          {
+    134          printf("PPS: %d\n",getPPS()); 
+   \   000000   B012....     CALL    #getPPS
+   \   000004   0C12         PUSH.W  R12
+   \   000006   3C40....     MOV.W   #`?<Constant "PPS: %d\\n">`, R12
+   \   00000A   B012....     CALL    #printf
+    135          }
+   \   00000E   2153         ADD.W   #0x2, SP
+   \   000010   3041         RET
+    136          
+    137          /***********************************
+    138          
+    139            Name: hal_printSpeed_mps
+    140            Parameters: None
+    141            Return: void
+    142            Description: Prints the speed value in meters per second to the console using printf. */
+    143          
+
+   \                                 In  segment CODE, align 2
+    144          void hal_printSpeed_mps()
+   \                     hal_printSpeed_mps:
+    145          {
+    146            printf("Speed (m/s): %.2f\n",getSpeed_mps());
+   \   000000   B012....     CALL    #getSpeed_mps
+   \   000004   0D12         PUSH.W  R13
+   \   000006   0C12         PUSH.W  R12
+   \   000008   3C40....     MOV.W   #`?<Constant "Speed (m/s): %.2f\\n">`, R12
+   \   00000C   B012....     CALL    #printf
+    147          }
+   \   000010   2152         ADD.W   #0x4, SP
+   \   000012   3041         RET
+    148          
+    149          /***********************************
+    150          
+    151          Name: hal_blinkLED
+    152          Parameters: None
+    153          Return: void
+    154          Description: Blinks the status LED using the LED driver module. */
+    155          
+
+   \                                 In  segment CODE, align 2
+    156          void hal_blinkLED()
+   \                     hal_blinkLED:
+    157          {
+    158            drv_blinkLED();
+   \   000000   B012....     CALL    #drv_blinkLED
+    159          }
+   \   000004   3041         RET
+    160          
+    161          /***********************************
+    162          
+    163            Name: incPulseCount
+    164            Parameters: None
+    165            Return: void
+    166            Description: Increments the pulse count variable to keep track of detected pulses from the hall sensor. */
+    167          
+
+   \                                 In  segment CODE, align 2
+    168          void incPulseCount()
+   \                     incPulseCount:
+    169          {
+    170            pulse_count++;
+   \   000000   9253....     ADD.W   #0x1, &pulse_count
+    171          }
+   \   000004   3041         RET
+    172          
+    173          /***********************************
+    174          
+    175            Name: hal_process_HallSensor
+    176            Parameters: None
+    177            Return: void
+    178            Description: Processes the hall sensor data by resetting the pulse count and waiting for the desired interval using a delay. */
+    179          
+
+   \                                 In  segment CODE, align 2
+    180          void hal_process_HallSensor()
+   \                     hal_process_HallSensor:
+    181          {
+    182            #ifdef _DEBUG
+    183            printf("Interval started.\n");
+    184            #endif
+    185            // Start interval measurement
+    186            resetPulseCount();
+   \   000000   B012....     CALL    #resetPulseCount
+    187            
+    188            // Wait for the desired interval
+    189            __delay_cycles(SAMPLE_PERIOD*1000000); // Interval cycles
+   \   000004                ////////////// Start of 3000000 cycles delay.
+   \   000004   3F40AE71     MOV.W   #0x71ae, R15
+   \   000008   3E400B00     MOV.W   #0xb, R14
+   \                     ??hal_process_HallSensor_0:
+   \   00000C   3F53         ADD.W   #0xffff, R15
+   \   00000E   3E63         ADDC.W  #0xffff, R14
+   \   000010   FD2F         JC      ??hal_process_HallSensor_0
+   \   000012                ////////////// End of delay code.
+    190            
+    191            #ifdef _DEBUG
+    192            printf("Interval ended.\n");
+    193            #endif
+    194          }
+   \   000012   3041         RET
+    195          
+    196          /***********************************
+    197          
+    198            Name: hal_setCB_HallSensor
+    199            Parameters: p_fHallSensorCallback_t p_fHallSensorCallback_t_in (Function pointer to additional CB)
+    200            Return: void
+    201            Description: Sets an additional callback function related to the hall sensor,
+    202            allowing customization of behavior when the sensor is triggered. */
+    203          
+
+   \                                 In  segment CODE, align 2
+    204          void hal_setCB_HallSensor(p_fHallSensorCallback_t p_fHallSensorCallback_t_in)
+   \                     hal_setCB_HallSensor:
+    205          {
+    206            additional_CB = p_fHallSensorCallback_t_in;
+   \   000000   824C....     MOV.W   R12, &additional_CB
+    207          }
+   \   000004   3041         RET
+    208          
+    209          /***********************************
+    210            Name: hal_isr_hallsensorCB
+    211            Parameters: None
+    212            Return: void
+    213            Description: Interrupt Service Routine (ISR) for the hall sensor callback.
+    214            Calls the additional callback function, increments the pulse count. */
+    215          
+
+   \                                 In  segment CODE, align 2
+    216          void hal_isr_hallsensorCB()
+   \                     hal_isr_hallsensorCB:
+    217          {
+    218            #ifdef _DEBUG
+    219            printf("Magnet detected.\n");
+    220            #endif
+    221            additional_CB();
+   \   000000   9212....     CALL    &additional_CB
+    222            incPulseCount();
+   \   000004   B012....     CALL    #incPulseCount
+    223          }
+   \   000008   3041         RET
+
+   \                                 In  segment DATA16_C, align 1, align-sorted
+   \                     `?<Constant "RPM: %d\\n">`:
+   \   000000   52504D3A2025 DC8 "RPM: %d\012"
+   \            640A00      
+
+   \                                 In  segment DATA16_C, align 1, align-sorted
+   \                     `?<Constant "PPS: %d\\n">`:
+   \   000000   5050533A2025 DC8 "PPS: %d\012"
+   \            640A00      
+
+   \                                 In  segment DATA16_C, align 1, align-sorted
+   \                     `?<Constant "Speed (m/s): %.2f\\n">`:
+   \   000000   537065656420 DC8 "Speed (m/s): %.2f\012"
+   \            286D2F73293A
+   \            20252E32660A
+   \            00          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      2   getPPS
+        0 _Cast32fto32s
+        2 _Cast32uto32f
+        2 _Div32f
+        2 _Mul32f
+      2   getRPM
+        2 _Cast32fto32s
+        2 _Cast32uto32f
+        2 _Div32f
+        2 _Mul32f
+      2   getSpeed_mps
+        2 _Cast32uto32f
+        0 _Div32f
+        2 _Mul32f
+      2   hal_blinkLED
+        2   -> drv_blinkLED
+      2   hal_hallInit
+        2   -> drv_hallInit
+      2   hal_isr_hallsensorCB
+        2   -- Indirect call
+        2   -> incPulseCount
+      2   hal_ledInit
+        2   -> drv_ledInit
+      4   hal_printPPS
+        2   -> getPPS
+        4   -> printf
+      4   hal_printRPM
+        2   -> getRPM
+        4   -> printf
+      6   hal_printSpeed_mps
+        2   -> getSpeed_mps
+        6   -> printf
+      2   hal_process_HallSensor
+        2   -> resetPulseCount
+      2   hal_setCB_HallSensor
+      2   hal_setWheelDia
+        2 _Mul32f
+      2   incPulseCount
+      2   resetPulseCount
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       9  ?<Constant "PPS: %d\n">
+       9  ?<Constant "RPM: %d\n">
+      19  ?<Constant "Speed (m/s): %.2f\n">
+       2  additional_CB
+       4  circumference
+      36  getPPS
+      48  getRPM
+      32  getSpeed_mps
+       6  hal_blinkLED
+       6  hal_hallInit
+      10  hal_isr_hallsensorCB
+       6  hal_ledInit
+      18  hal_printPPS
+      18  hal_printRPM
+      20  hal_printSpeed_mps
+      20  hal_process_HallSensor
+       6  hal_setCB_HallSensor
+      22  hal_setWheelDia
+       6  incPulseCount
+       2  pulse_count
+       6  resetPulseCount
+       2  rpm
+
+ 
+ 260 bytes in segment CODE
+  37 bytes in segment DATA16_C
+  10 bytes in segment DATA16_Z
+ 
+ 260 bytes of CODE  memory
+  37 bytes of CONST memory
+  10 bytes of DATA  memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,61 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\XclFileGenerator.exe" $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\SourceIndexer.exe" $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out
+
+rule MAKEBROWSE
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\makeBrowseData.exe" $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out
+
+rule PDBLINK
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\PbdLink.exe" $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out
+
+
+
+#Build steps
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\drv.c" -xcl_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.xcl" -macro_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\430\bin\icc430.exe" -u8_wrapper "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\iarconvert.exe"
+  flags = "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\drv.c" --preprocess=cl "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\List\\" -lCN "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\List\\" -o "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --debug -D__MSP430G2553__ -e --double=32 --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\430\lib\dlib\dl430fn.h" -Ol --predef_macros "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.tmp"
+  rspfile_name = C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.xcl.rsp
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\hal.c" -xcl_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.xcl" -macro_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\430\bin\icc430.exe" -u8_wrapper "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\iarconvert.exe"
+  flags = "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\hal.c" --preprocess=cl "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\List\\" -lCN "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\List\\" -o "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --debug -D__MSP430G2553__ -e --double=32 --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\430\lib\dlib\dl430fn.h" -Ol --predef_macros "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.tmp"
+  rspfile_name = C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.xcl.rsp
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\main.c" -xcl_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.xcl" -macro_file "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\430\bin\icc430.exe" -u8_wrapper "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\iarconvert.exe"
+  flags = "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\main.c" --preprocess=cl "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\List\\" -lCN "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\List\\" -o "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --debug -D__MSP430G2553__ -e --double=32 --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\430\lib\dlib\dl430fn.h" -Ol --predef_macros "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.tmp"
+  rspfile_name = C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.xcl.rsp
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.pbi : INDEXER C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.xcl |  $
+C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\drv.c
+  flags = "-out=C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.pbi" -f "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.xcl"
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.pbi : INDEXER C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.xcl |  $
+C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\hal.c
+  flags = "-out=C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.pbi" -f "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.xcl"
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.pbi : INDEXER C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.xcl |  $
+C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\main.c
+  flags = "-out=C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.pbi" -f "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.xcl"
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hall_speedometer.pbw : MAKEBROWSE C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hall_speedometer.pbd
+  flags = "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hall_speedometer.pbd" -output "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hall_speedometer.pbw"
+
+build C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hall_speedometer.pbd : PDBLINK C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.pbi |  $
+C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.pbi $
+C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.pbi
+  flags = -M "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hall_speedometer.pbd" "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\drv.pbi" "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\hal.pbi" "C$:\Siddharth\Personal\Embedded$ C\IAR_programs\SpeedometerDesign\BrowseInfo\main.pbi"
+
